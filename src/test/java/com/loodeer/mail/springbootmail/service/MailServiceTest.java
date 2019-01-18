@@ -25,7 +25,7 @@ public class MailServiceTest {
     }
 
     @Test
-    public void sendHtmlMailTest() throws MessagingException {
+    public void sendHtmlMailTest() {
         String content = "<html>\n" +
                 "<body>\n" +
                 "<h1>新年快乐</h1>\n" +
@@ -35,7 +35,24 @@ public class MailServiceTest {
     }
 
     @Test
-    public void sendAttachmentsMailTest() throws MessagingException {
-        mailService.sendAttachmentsMail("mymail@163.com", "新年送书", "送你一本书，详细见附件", "~/PhpstormProjects/github/springboot-mail/src/test/java/com/loodeer/mail/springbootmail/service/MailServiceTest.java");
+    public void sendAttachmentsMailTest() {
+        mailService.sendAttachmentsMail("mymail@163.com", "新年快乐附件版", "送你一本书，详细见附件", "path/to/MailServiceTest.java");
+    }
+
+    @Test
+    public void sendInlineResourceMailTest() {
+        String imgPath = "~/Downloads/QQ图片20180628133519.png";
+        String rscId = "xxx001";
+        String content = "<html>" +
+                "<body>" +
+                "这是有图片的邮件: <img src=\'cid:" + rscId + "\'></img>" +
+                "</body>" +
+                "</html>";
+        mailService.sendInlineResourceMail("mymail@163.com", "新年快乐图片版", content, imgPath, rscId);
+    }
+
+    @Test
+    public void sendTemplateMailTest() {
+        mailService.sendTemplateMail("mymail@163.com", "1");
     }
 }
